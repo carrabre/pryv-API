@@ -1,0 +1,24 @@
+{
+  "name": "Pryv API Platform",
+  "short_name": "Pryv API",
+  "description": "Dashboard and documentation for configurable AI API services",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#76CFF8",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "productivity",
+    "communication"
+  ],
+  "lang": "en",
+  "scope": "/"
+}

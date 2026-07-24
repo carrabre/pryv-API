@@ -1,0 +1,12 @@
+# Root .gitignore covers shared patterns. Keep mobile-specific generated state here.
+.env*
+!.env.example
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+.kotlin/
+.metro-health-check*
+app-example/
+/ios
+/android

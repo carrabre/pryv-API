@@ -1,0 +1,11 @@
+Pryv API Platform
+
+This product includes software derived from the Vercel AI Chatbot / Chat SDK template.
+Copyright 2024 Vercel, Inc.
+
+The upstream project is available at https://github.com/vercel/ai-chatbot and is licensed under
+the Apache License, Version 2.0.
+
+The mobile workspace retains generic application-icon assets derived from the Expo default
+starter template. Expo is available at https://github.com/expo/expo and is licensed under the MIT
+License.

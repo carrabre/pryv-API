@@ -1,0 +1,60 @@
+packages:
+  - mobile
+
+nodeLinker: hoisted
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - '@ipshipyard/node-datachannel'
+  - bufferutil
+  - esbuild
+  - iso-constants
+  - sharp
+
+# Security backports that stay within the transitive dependency's existing major line.
+# Remove an override once all parent packages resolve to a patched release directly.
+overrides:
+  '@babel/core@<=7.29.0': 7.29.6
+  '@xmldom/xmldom@<0.8.13': 0.8.13
+  'ajv@<6.14.0': 6.14.0
+  'bn.js@>=5.0.0 <5.2.3': 5.2.3
+  'brace-expansion@<1.1.16': 1.1.16
+  'brace-expansion@>=2.0.0 <2.0.3': 2.0.3
+  'defu@<=6.1.4': 6.1.5
+  'esbuild@<=0.24.2': 0.25.0
+  'flatted@<3.4.2': 3.4.2
+  'glob@>=10.2.0 <10.5.0': 10.5.0
+  'h3@<1.15.9': 1.15.9
+  'handlebars@>=4.0.0 <=4.7.8': 4.7.9
+  'js-yaml@<3.15.0': 3.15.0
+  'js-yaml@>=4.0.0 <4.3.0': 4.3.0
+  'jsondiffpatch@<0.7.2': 0.7.2
+  'linkify-it@<=5.0.0': 5.0.1
+  'lodash@<4.18.0': 4.18.0
+  'markdown-it@>=14.0.0 <14.2.0': 14.2.0
+  'mdast-util-to-hast@>=13.0.0 <13.2.1': 13.2.1
+  'minimatch@<3.1.4': 3.1.4
+  'minimatch@>=9.0.0 <9.0.7': 9.0.7
+  'node-forge@<1.4.0': 1.4.0
+  'picomatch@<2.3.2': 2.3.2
+  'picomatch@>=3.0.0 <3.0.2': 3.0.2
+  'picomatch@>=4.0.0 <4.0.4': 4.0.4
+  'postcss@<8.5.12': 8.5.12
+  'preact@>=10.27.0 <10.27.3': 10.27.3
+  react: 19.1.0
+  react-dom: 19.1.0
+  'shell-quote@>=1.1.0 <1.9.0': 1.9.0
+  'tar@<7.5.19': 7.5.19
+  'undici@<6.27.0': 6.27.0
+  'ws@>=6.0.0 <6.2.4': 6.2.4
+  'ws@>=7.0.0 <7.5.11': 7.5.11
+  'ws@>=8.0.0 <8.21.0': 8.21.0
+  'yaml@>=1.0.0 <1.10.3': 1.10.3
+  'yaml@>=2.0.0 <2.8.3': 2.8.3
+
+# Compatibility overrides for vulnerable utilities in optional Thirdweb dependency paths.
+# The application does not invoke the affected code-generation, archive-extraction, or Blob drivers.
+  '@hey-api/openapi-ts@<0.97.3': 0.97.3
+  'axios@<1.18.0': 1.18.0
+  'fast-uri@<3.1.4': 3.1.4
+  'sharp@<0.35.0': 0.35.0

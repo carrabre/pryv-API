@@ -1,0 +1,75 @@
+# Pryv API Platform AI Context
+
+Last updated: 2026-07-23
+
+## Product Summary
+
+Pryv API Platform is an open-source web and mobile client for a separately operated AI API service. It includes wallet-authenticated management screens, prepaid-credit views, usage visibility, configurable PII controls, and remote MCP documentation. Deployers must configure their own backend and replace every example.com URL below.
+
+## Quickstart
+
+1. Sign in to the platform with a wallet.
+2. Add credits through Billing.
+3. Create an API key. The secret is shown once.
+4. Call https://api.example.com/v1/chat/completions with Authorization: Bearer $PRYV_API_KEY.
+5. Handle 401 auth errors, 402 insufficient credits, and 429 rate limits.
+
+## Authentication Model
+
+Public API routes use Authorization: Bearer $PRYV_API_KEY headers. Management routes use wallet-signed payloads with walletAddress, message, and signature fields. Wallet auth messages include action, keyId when relevant, nonce, and timestamp values to prevent replay.
+
+## Public API Endpoints
+
+- GET /v1/models: list models available to the API key.
+- GET /v1/models/{id}: read one model detail response.
+- POST /v1/chat/completions: OpenAI-compatible chat completions. Set stream=true for text/event-stream chunks ending with [DONE].
+- POST /v1/pii/preview: paid PII preview. Read the current fee from the deployed service.
+
+## Billing And Management Endpoints
+
+- GET /api/v1/billing/credit-packs: list public credit packs.
+- GET /api/v1/billing/balance: wallet-authenticated credit balance.
+- GET /api/v1/billing/ledger: wallet-authenticated usage ledger.
+- POST /api/v1/billing/checkout: wallet-authenticated Stripe checkout creation.
+- GET /api/v1/billing/success: checkout success redirect.
+- GET /api/v1/billing/cancel: checkout cancel redirect.
+- GET /api/v1/keys: wallet-authenticated API key list.
+- POST /api/v1/keys: wallet-authenticated API key creation.
+- DELETE /api/v1/keys/{keyId}: wallet-authenticated key revocation.
+
+## Chat Completion Parameters
+
+Required fields are model and messages. Optional fields include stream, max_tokens, tools, urls, pdfs, privacyMode, piiEntities, piiConfig, and skip_pii_redaction. Message content can be text or multimodal parts. X-Request-Id is echoed into ledger entries when supplied.
+
+## PII Controls
+
+PII preview supports entity selection, model-based text thresholds, face blur controls, OCR-related image settings, and PDF page or threshold settings. Accepted aliases include pii_entities, pii_config, skipPiiRedaction, no_pii_redaction, and noPiiRedaction.
+
+## Errors
+
+- 400: invalid model, invalid params, or validation errors.
+- 401: missing_api_key, invalid_api_key, inactive_api_key, or missing_wallet_auth.
+- 402: insufficient_credits.
+- 403: wallet signature failures, including ACTION_MISMATCH, KEY_ID_MISMATCH, NONCE_REPLAY, SIGNATURE_INVALID, and SIGNATURE_VERIFY_ERROR.
+- 429: rate_limit_exceeded_rpm or rate_limit_exceeded_tpm. Respect Retry-After.
+- 500: internal_error or billing_error.
+
+## Rate Limits
+
+Responses can include X-RateLimit-Limit-RPM, X-RateLimit-Remaining-RPM, X-RateLimit-Reset-RPM, X-RateLimit-Limit-TPM, X-RateLimit-Remaining-TPM, X-RateLimit-Reset-TPM, and Retry-After.
+
+## MCP
+
+The example remote MCP server is https://mcp.example.com/mcp. Replace it with the URL of a configured OAuth-backed Streamable HTTP MCP service. Bearer API keys are only for /v1/* HTTP API routes.
+
+## MPP
+
+The MPP surface under /mpp/* supports free discovery, one-shot paid preview, API-key purchase, and Tempo streaming chat flows. Use it for machine-payment workflows rather than dashboard-managed prepaid credits.
+
+## Operational Guidance
+
+Cache GET /v1/models for hours. Cache key lists and balances for 5 to 15 seconds with manual refresh. Retry idempotent GETs with exponential backoff. Do not automatically retry key creation or checkout creation without user action.
+
+## Security Guidance
+
+API keys are shown once and cannot be recovered. Do not commit keys. Prefer server-side storage over localStorage. Prefer POST for wallet-authenticated management calls to reduce URL leakage in logs. Treat the backend as the source of truth for entitlement, balance, and usage.

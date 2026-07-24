@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      AUTH_SECRET: ci-only-placeholder-not-a-production-secret
+      NEXT_PUBLIC_THIRDWEB_CLIENT_ID: ci-client-id
+      NEXT_PUBLIC_API_BASE_URL: https://api.example.com
+      NEXT_PUBLIC_PLATFORM_URL: https://platform.example.com
+      PRIVATE_API_BASE_URL: https://api.example.com
+      PRIVATE_MPP_API_BASE_URL: https://api.example.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm check
+      - run: pnpm build

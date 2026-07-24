@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Pryv API Platform</title>
+  <rect width="64" height="64" rx="14" fill="#07111f"/>
+  <path d="M18 21h19c7 0 12 5 12 12s-5 12-12 12H27v8h-9V21zm9 8v8h10a4 4 0 0 0 0-8H27z" fill="#76cff8"/>
+</svg>

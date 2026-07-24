@@ -1,0 +1,25 @@
+# Pryv API Platform
+
+> Pryv API Platform is an open-source client for a separately deployed API service. All example.com links are placeholders.
+
+## Primary Docs
+
+- [Full AI context](https://platform.example.com/llms-full.txt): Complete plain-text context for AI agents and documentation ingestion.
+- [Platform docs](https://platform.example.com/docs): Authenticated overview for API keys, credits, and quickstart flows.
+- [API reference](https://platform.example.com/docs/reference): Authenticated endpoint, auth, privacy, limits, and operations reference.
+- [MCP guide](https://platform.example.com/docs/mcp): Remote Streamable HTTP MCP setup for Codex and compatible clients.
+- [MPP guide](https://platform.example.com/docs/mpp): Machine-payment preview, key purchase, and Tempo streaming chat flows.
+
+## API Surfaces
+
+- [Chat completions](https://api.example.com/v1/chat/completions): OpenAI-compatible chat endpoint with optional SSE streaming.
+- [Models](https://api.example.com/v1/models): Model catalog for active API keys.
+- [PII preview](https://api.example.com/v1/pii/preview): Privacy preview endpoint for text, image, and PDF redaction controls.
+- [MCP server](https://mcp.example.com/mcp): Placeholder for an OAuth-backed remote MCP server.
+
+## Agent Notes
+
+- Use Bearer Pryv API keys only for /v1/* public API routes.
+- Use wallet-signed management requests for API key, balance, ledger, and checkout operations.
+- Replace all example.com origins with the deployer's configured services.
+- Last updated: 2026-07-23.
